@@ -33,6 +33,7 @@ function setRankings(json) {
         // }
         const rank = data["current"] ? data["current"] + first : "NR";
         const record = data["recordSummary"];
+        const points = data["points"];
 
         const name = data["team"]["nickname"];
         const id = data["team"]["id"];
@@ -42,6 +43,8 @@ function setRankings(json) {
 
         const rankData = document.createElement("td");
         rankData.appendChild(document.createTextNode(rank));
+        const pointsData = document.createElement("td");
+        pointsData.appendChild(document.createTextNode(points));
 
         const recordData = document.createElement("td");
         recordData.appendChild(document.createTextNode(record));
@@ -51,6 +54,7 @@ function setRankings(json) {
 
         row.appendChild(nameData);
         row.appendChild(rankData);
+        row.appendChild(pointsData);
         recordData.setAttribute("id", "record" + id);
         row.appendChild(recordData);
 
