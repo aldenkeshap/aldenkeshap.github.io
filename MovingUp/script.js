@@ -1,7 +1,7 @@
 window.onload = init;
 
-const teamPrefixURL = 'http://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/';
-const rankingsURL = 'http://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings';
+const teamPrefixURL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/';
+const rankingsURL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings';
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
