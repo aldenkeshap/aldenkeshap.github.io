@@ -69,9 +69,9 @@ function mondays() {
     date.setMinutes(0);
     date.setSeconds(0);
     var monday;
-    if (date.getDay() == 1 && date.getHours() >= 1) {
+    if (date.getDay() == 1 && date.getHours() >= 13) {
         // monday = date.setHours(1);
-    } else if (date.getDay() == 1 && date.getHours() >= 1) {
+    } else if (date.getDay() == 1) {
         monday = date.setDate(date.getDate() - 7);
         // monday = date.setHours(1);
     } else if (date.getDay() == 0) {
