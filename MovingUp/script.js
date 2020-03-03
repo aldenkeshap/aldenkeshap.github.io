@@ -2,6 +2,8 @@ window.onload = init;
 
 const teamPrefixURL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/';
 const rankingsURL = 'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings';
+const liveScorePrefixURL = 'https://www.espn.com/mens-college-basketball/game?gameId=';
+
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -26,11 +28,7 @@ function setRankings(json) {
     const teams = json["rankings"][0]["ranks"].concat(json["rankings"][0]["others"]);
     for (const [index, data] of teams.entries()) {
         const first = data["firstPlaceVotes"] ? " (" + data["firstPlaceVotes"] + ")" : "";
-        // if (data["firstPlaceVotes"]) {
-        //     const first = " (" + data["firstPlaceVotes"] + ")";
-        // } else {
-        //     const first = "";
-        // }
+        
         const rank = data["current"] ? data["current"] + first : "NR";
         const record = data["recordSummary"];
         const points = data["points"];
@@ -73,10 +71,8 @@ function mondays() {
         monday = date.setHours(1);
     } else if (date.getDay() == 1) {
         monday = date.setDate(date.getDate() - 7);
-        // monday = date.setHours(1);
     } else if (date.getDay() == 0) {
         monday = date.setDate(date.getDate() - 6);
-        // monday = date.setHours(1);
     } else {
         monday = date.setDate(date.getDate() - date.getDay() + 1);
     }
@@ -103,7 +99,7 @@ function setGames(json) {
         const location = team["homeAway"] == "home" ? "vs" : "at";
         const rank = opp["curatedRank"]["current"] == 99 ? "" : opp["curatedRank"]["current"] + " ";
         var result = location + " " + rank + opp["team"]["nickname"];
-        var color = "c8c8c8";
+        var color;
         if (team["score"]) {
             var wl;
             if (team["score"]["value"] > opp["score"]["value"]) {
@@ -116,6 +112,8 @@ function setGames(json) {
             const score = wl + " " + team["score"]["value"] + "-" + opp["score"]["value"];
             result = result + " " + score;
         } else {
+            color = date < Date.now() ? "6060ff" : "c8c8c8";
+
             const amPm = date.getHours() >= 12 ? "pm" : "am";
             var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
             var minutes = date.getMinutes();
@@ -132,7 +130,11 @@ function setGames(json) {
 
         if (startDate < date && date < endDate) {
             const gameData = document.createElement("td");
-            gameData.appendChild(document.createTextNode(result));
+            const link = document.createElement("a");
+            const url = 'https://www.espn.com/mens-college-basketball/game?gameId=' + game["competitions"][0]["id"];
+            link.setAttribute('href', url);
+            link.appendChild(document.createTextNode(result));
+            gameData.appendChild(link);
             gameData.setAttribute("style", "background-color: #" + color);
             row.appendChild(gameData);
         }
