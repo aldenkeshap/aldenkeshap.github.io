@@ -100,7 +100,7 @@ function setGames(json) {
         const rank = opp["curatedRank"]["current"] == 99 ? "" : opp["curatedRank"]["current"] + " ";
         var result = location + " " + rank + opp["team"]["nickname"];
         var color;
-        if (team["score"]) {
+        if (game["competitions"][0]["status"]["type"]["completed"] && team["score"]) {
             var wl;
             if (team["score"]["value"] > opp["score"]["value"]) {
                 wl = "W";
