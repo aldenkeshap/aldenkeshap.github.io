@@ -14,7 +14,7 @@ function run() {
     const code = document.getElementById('chacmaCode');
     // const url = 'localhost:8001/?code=' + btoa(code.value);
     const e = base32.encode(code.value);
-    const url = 'http://nedla2004.pythonanywhere.com/?code=' + e;
+    const url = 'https://nedla2004.pythonanywhere.com/?code=' + e;
     console.log(url);
     const outputBox = document.getElementById('output');
     outputBox.value = 'Loading...';
