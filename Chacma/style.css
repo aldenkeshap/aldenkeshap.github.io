@@ -1,0 +1,77 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway';
+    line-height: 0em;
+    padding: 0;
+    padding-bottom: 0.5em;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 6em;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 3em;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 2em;
+}
+
+h4 {
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+a {
+    font-family: 'Raleway';
+    font-weight: 400;
+    color: #555;
+}
+
+h2.button {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: 0.2em;
+    background-color: #cfc;
+}
+
+div.horizontalBar {
+    /*float: right;*/
+    padding-top: 0em;
+}
+
+ul.horizontalBar {
+    list-style-type: none;
+    padding-bottom: 1em;
+    padding-top: 0em;
+    float: right;
+}
+
+li.horizontalBar {
+    color: red;
+    float: left;
+    padding-right: 1em;   
+    font-size: 1.5em;
+}
+
+.main {
+    padding-top: 6em;
+    padding-left: 10em;
+    padding-right: 10em;
+}
+
+.title {
+    padding-top: 0;
+    float: left;
+}
+
+.start {
+    float: right;
+
+}
+
