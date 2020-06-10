@@ -25,3 +25,7 @@ function setOutput(output) {
     const outputBox = document.getElementById('output');
     outputBox.value = output;
 }
+function set(text) {
+    var code = document.getElementById('chacmaCode');
+    code.value = text;
+}

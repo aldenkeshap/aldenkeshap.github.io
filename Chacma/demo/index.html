@@ -4,10 +4,15 @@
     <title>Chacma Online Demo</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="base32.js"></script>
+    <script type="text/javascript" src="programs.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
     <h1>Chacma</h1>
+    <button onclick="set(square);">Square</button>
+    <button onclick="set(ack);">Ackermann</button>
+    <button onclick="set(structs);">Structure</button>
+    <button onclick="set(template);">Template Structure</button>
     <textarea id="chacmaCode"></textarea>
     <textarea id="output" readonly="true"></textarea>
     <button onclick="run();">Compile!</button>
