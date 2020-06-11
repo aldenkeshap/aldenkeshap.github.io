@@ -33,3 +33,12 @@ func main() -> Int64:
     ints = Template(3, 4)
     floats = Template(5.6, 6.7)
     return ints.c + ints.d + toInt(floats.c + floats.d)`;
+
+const list = `func sum(l: List[Int64]) -> Int64:
+    total = 0
+    for n in l:
+        total = total + n
+    return total
+
+func main() -> Int64:
+    return sum([13, 14, 15])`;
