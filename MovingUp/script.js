@@ -97,7 +97,8 @@ function setGames(json) {
         const opp = game["competitions"][0]["competitors"][team1Id == teamId ? 1 : 0];
 
         const location = team["homeAway"] == "home" ? "vs" : "at";
-        const rank = opp["curatedRank"]["current"] == 99 ? "" : opp["curatedRank"]["current"] + " ";
+        const r = opp["curatedRank"]["current"]
+        const rank = r == 99 || r == 0 ? "" : opp["curatedRank"]["current"] + " ";
         var result = location + " " + rank + opp["team"]["nickname"];
         var color;
         if (game["competitions"][0]["status"]["type"]["completed"] && team["score"]) {
