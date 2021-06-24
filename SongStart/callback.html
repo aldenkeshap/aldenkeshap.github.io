@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Song Start</title>
+    <script type="text/javascript" src="callback.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+</head>
+<body>
+    <h1>Song Start</h1>
+    <select id="media-type" onchange="mediaTypeChange();">
+        <option value="album">Album</option>
+        <option value="playlist">Playlist</option>
+    </select>
+    <input type="text" id="search">
+    <button onclick="search();">Search!</button>
+    <br>
+    Results
+    <select id="search-results">
+        <option value="" id="top-result">Search for an album</option>
+    </select>
+    <br>
+    <button onclick="play();" id="button">Start!</button>
+    <input type="text" id="song-name">
+    <button onclick="submit();">Submit!</button>
+    <h3 id="time"></h3>
+    <h3 id="progress"></h3>
+    <h3 id="correct"></h3>
+    <h3 id="last"></h3>
+</body>
+</html>
