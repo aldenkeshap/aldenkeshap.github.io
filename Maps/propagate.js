@@ -18,10 +18,10 @@ function removeOption(options, t) {
 function propagateTile(grid, p) {
     const limits = bounds(grid, p);
     const tileN = grid[p][0];
-    for (let tN = 0; tN < 3; tN++) {
+    for (let tN = 0; tN < tiles2.length; tN++) {
         const [rMin, rMax] = tiles2[tileN][tN];
         nMin = limits[tN];
-        nMax = limits[tN + 3];
+        nMax = limits[tN + tiles2.length];
         if (rMax == nMin) {
             for (const n of neighbors(p)) {
                 let options = grid[n];

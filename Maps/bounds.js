@@ -34,11 +34,11 @@ sand = [
     [0, 2],
 ];
 
-tiles = {
-    '~':water,
-    '.':ground,
-    '#':sand,
-};
+// tiles = {
+//     '~':water,
+//     '.':ground,
+//     '#':sand,
+// };
 
 const tiles2 = [
     water,
@@ -46,7 +46,7 @@ const tiles2 = [
     sand,
 ];
 
-const zeros = [0, 0, 0];
+// const zeros = [0, 0, 0];
 
 const weights = {
     '~':10,

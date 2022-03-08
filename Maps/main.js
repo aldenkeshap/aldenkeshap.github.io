@@ -41,11 +41,11 @@ function runMany(f, grid, state) {
     // updateCanvas();
     // let state = 0;
     let i = 0;
-    while (!done(grid) && state < 100 && i < 10) {
+    while (!done(grid) && state < 100 && i < 100) {
         [grid, state] = run(f, grid, state);
         i++;
     }
-    if (i == 10) {
+    if (i == 100) {
         setTimeout(function () {
             runMany(f, grid, state);
         }, 1);
