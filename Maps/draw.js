@@ -20,8 +20,6 @@ function getColor(options) {
         colors.push(tiles[t].color);
     }
     const [r, g, b] = averageColor(colors);
-    // console.log("C", c);
-    // return c;
     return `rgb(${r}, ${g}, ${b})`
 }
 

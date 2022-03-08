@@ -1,25 +1,34 @@
+// function removeOption(options, t) {
+//     const i = options.indexOf(t);
+//     if (i != -1) {
+//         options.splice(i, 1);
+//     }
+// }
+
 function removeOption(options, t) {
-    const i = options.indexOf(t);
-    if (i != -1) {
-        options.splice(i, 1);
+    let n = [];
+    for (const o of options) {
+        if (o != t) {
+            n.push(o);
+        }
     }
+    return n;
 }
 
 function propagateTile(grid, p) {
     const [bottom, top] = bounds(grid, p);
     const tile = grid.get(p)[0];
     for (const t in tiles) {
-        rMin = tiles[tile][t + '_min'];
-        rMax = tiles[tile][t + '_max'];
-        nMin = bottom.get(t);
-        nMax = top.get(t);
+        const [rMin, rMax] = tiles[tile][t];
+        nMin = bottom[t];
+        nMax = top[t];
         if (rMax == nMin) {
             for (const n of neighbors(grid, p)) {
                 let options = grid.get(n);
                 if (options.length == 1) {
                     continue;
                 }
-                removeOption(options, t);
+                options = removeOption(options, t);
                 grid.set(n, options);
             }
         }

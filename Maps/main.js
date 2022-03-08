@@ -17,18 +17,22 @@ function best(g, state) {
 function run(f, grid, state) {
     const n = new Map(grid);
     state = f(n, state);
-    if (failed(n)) {
-        console.log('FAILED', state);
-    } else {
+    if (!failed(n)) {
         grid = n;
-        console.log('GOOD', state);
     }
-    // drawGrid(grid);
     return [grid, state];
 }
 
+let start;
 function runAll(f) {
     SIZE = +document.getElementById('size').value;
+    if (SIZE > 60) {
+        SIZE = 60;
+    } else if (SIZE < 5) {
+        SIZE = 5;
+    }
+    document.getElementById('size').value = SIZE;
+    start = Date.now();
     runMany(f, empty(), 0);
 }
 
@@ -37,18 +41,17 @@ function runMany(f, grid, state) {
     // updateCanvas();
     // let state = 0;
     let i = 0;
-    while (!done(grid) && state < 100 && i < 20) {
+    while (!done(grid) && state < 100 && i < 10) {
         [grid, state] = run(f, grid, state);
         i++;
     }
-    if (i == 20) {
+    if (i == 10) {
         setTimeout(function () {
             runMany(f, grid, state);
-        }, 10);
-        console.log('ST');
+        }, 1);
         drawGrid(grid);
     } else {
-        console.log("DONE", i, state, done(grid));
+        console.log("DONE", i, state, done(grid), Date.now() - start);
         drawGrid(grid);
     }
     

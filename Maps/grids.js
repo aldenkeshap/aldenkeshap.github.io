@@ -8,33 +8,61 @@ function empty() {
     return grid;
 }
 
+// function neighbors(grid, p) {
+//     let n = [];
+//     for (const d of [-1, 1, -1000, 1000]) {
+//         if (grid.has(p + d)) {
+//             n.push(p + d);
+//         }
+//     }
+//     return n;
+// }
+
 function neighbors(grid, p) {
+    const x = p % 1000;
+    const y = Math.floor(p / 1000);
+
     let n = [];
-    for (const d of [-1, 1, -1000, 1000]) {
-        if (grid.has(p + d)) {
-            n.push(p + d);
-        }
+    if (x > 0) {
+        n.push(p - 1);
+    }
+    if (x < SIZE - 1) {
+        n.push(p + 1);
+    }
+    if (y > 0) {
+        n.push(p - 1000);
+    }
+    if (y < SIZE - 1) {
+        n.push(p + 1000);
     }
     return n;
 }
 
-
 function bounds(grid, p) {
-    // const outside = n.length;
-    let fixed = new Map();
-    for (const t in tiles) {
-        fixed.set(t, 0);
-    }
-    let possible = new Map(fixed);
-
+    // let fixed = {};
+    // let possible = {};
+    // for (const t of allTiles) {
+    //     fixed[t] = 0;
+    //     possible[t] = 0;
+    // }
+    // let fixed = Object.assign({}, zeros);
+    // let possible = Object.assign({}, zeros);
+    // let fixed = {'#':0, '~':0, '.':0};
+    // let possible = {'#':0, '~':0, '.':0};
+    let fixed = {...zeros};
+    let possible = {...zeros};
     for (const n of neighbors(grid, p)) {
-        options = grid.get(n);
+        const options = grid.get(n);
         if (options.length == 1) {
-            fixed.set(options[0], fixed.get(options[0]) + 1);
+            const t = options[0];
+            fixed[t] += 1;
+            possible[t] += 1;
+        } else {
+            for (const t of options) {
+                possible[t] += 1;
+            }
         }
-        for (const t of options) {
-            possible.set(t, possible.get(t) + 1);
-        }
+        
     }
     return [fixed, possible];
 }
@@ -42,12 +70,10 @@ function bounds(grid, p) {
 function isPossible(grid, p, tile) {
     const [bottom, top] = bounds(grid, p);
     // let n = [];
-    for (const t in tiles) {
-        rMin = tiles[tile][t + '_min'];
-        rMax = tiles[tile][t + '_max'];
-        nMin = bottom.get(t);
-        nMax = top.get(t);
-        if (nMin > rMax || nMax < rMin) {
+    const q = tiles[tile];
+    for (const t of allTiles) {
+        const [rMin, rMax] = q[t];
+        if (bottom[t] > rMax || top[t] < rMin) {
             return false;
         }
     }
