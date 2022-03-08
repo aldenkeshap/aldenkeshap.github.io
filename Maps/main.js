@@ -15,7 +15,7 @@ function best(g, state) {
 }
 
 function run(f, grid, state) {
-    const n = new Map(grid);
+    const n = [...grid];
     state = f(n, state);
     if (!failed(n)) {
         grid = n;

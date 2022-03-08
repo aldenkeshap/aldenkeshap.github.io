@@ -16,8 +16,9 @@ function getColor(options) {
     // // return [r * 255, g * 255, b * 255];
     // return `rgb(${r * 255}, ${g * 255}, ${b * 255})`;
     let colors = [];
-    for (const t of options) {
-        colors.push(tiles[t].color);
+    for (const tN of options) {
+        const t = ['~', '.', '#'][tN];
+        colors.push(tileColors[t]);
     }
     const [r, g, b] = averageColor(colors);
     return `rgb(${r}, ${g}, ${b})`
@@ -31,15 +32,30 @@ function drawGrid(grid) {
 
     for (let y = 0; y < SIZE; y++) {
         for (let x = 0; x < SIZE; x++) {
-            ctx.fillStyle = getColor(grid.get(y * 1000 + x));
+            ctx.fillStyle = getColor(grid[y * SIZE + x]);
             ctx.fillRect(x * scale, y * scale, scale, scale);
         }
     }
 }
 
 function test() {
+    SIZE = 10;
     let g = empty();
-    g.set(8008, '~');
+    g[45] = [0];
+    g[65] = [0];
+    g[54] = [0];
+    g[56] = [0];
+    drawGrid(g);
+    return g;
+}
+
+function test2() {
+    SIZE = 10;
+    let g = empty();
+    g[45] = [0];
+    g[65] = [0];
+    g[54] = [0];
+    g[55] = [2];
     drawGrid(g);
     return g;
 }

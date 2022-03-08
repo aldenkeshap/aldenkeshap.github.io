@@ -1,26 +1,19 @@
 function empty() {
-    let grid = new Map();
-    for (let x = 0; x < SIZE; x++) {
-        for (let y = 0; y < SIZE; y++) {
-            grid.set(y * 1000 + x, ['~', '.', '#']);
+    // let grid = new Map();
+    let grid = [];
+    for (let y = 0; y < SIZE; y++) {
+        for (let x = 0; x < SIZE; x++) {
+            // grid.push(['~', '.', '#']);
+            grid.push([0, 1, 2]);
+            // grid.set(y * 1000 + x, );
         }
     }
     return grid;
 }
 
-// function neighbors(grid, p) {
-//     let n = [];
-//     for (const d of [-1, 1, -1000, 1000]) {
-//         if (grid.has(p + d)) {
-//             n.push(p + d);
-//         }
-//     }
-//     return n;
-// }
-
-function neighbors(grid, p) {
-    const x = p % 1000;
-    const y = Math.floor(p / 1000);
+function neighbors(p) {
+    const x = p % SIZE;
+    const y = Math.floor(p / SIZE);
 
     let n = [];
     if (x > 0) {
@@ -30,50 +23,42 @@ function neighbors(grid, p) {
         n.push(p + 1);
     }
     if (y > 0) {
-        n.push(p - 1000);
+        n.push(p - SIZE);
     }
     if (y < SIZE - 1) {
-        n.push(p + 1000);
+        n.push(p + SIZE);
     }
     return n;
 }
 
 function bounds(grid, p) {
-    // let fixed = {};
-    // let possible = {};
-    // for (const t of allTiles) {
-    //     fixed[t] = 0;
-    //     possible[t] = 0;
-    // }
-    // let fixed = Object.assign({}, zeros);
-    // let possible = Object.assign({}, zeros);
-    // let fixed = {'#':0, '~':0, '.':0};
-    // let possible = {'#':0, '~':0, '.':0};
-    let fixed = {...zeros};
-    let possible = {...zeros};
-    for (const n of neighbors(grid, p)) {
-        const options = grid.get(n);
+    let limits = new Array(zeros.length * 2);
+    for (let i = 0; i < zeros.length * 2; i++) {
+        limits[i] = 0;
+    }
+
+    for (const n of neighbors(p)) {
+        const options = grid[n];
         if (options.length == 1) {
-            const t = options[0];
-            fixed[t] += 1;
-            possible[t] += 1;
+            const tN = options[0]
+            limits[tN] += 1;
+            limits[tN + 3] += 1;
         } else {
-            for (const t of options) {
-                possible[t] += 1;
+            for (const tN of options) {
+                limits[tN + 3] += 1;
             }
         }
         
     }
-    return [fixed, possible];
+    return limits;
 }
 
 function isPossible(grid, p, tile) {
-    const [bottom, top] = bounds(grid, p);
-    // let n = [];
-    const q = tiles[tile];
-    for (const t of allTiles) {
-        const [rMin, rMax] = q[t];
-        if (bottom[t] > rMax || top[t] < rMin) {
+    const limits = bounds(grid, p);
+    const q = tiles2[tile];
+    for (let tN = 0; tN < zeros.length; tN++) {
+        const [rMin, rMax] = q[tN];
+        if (limits[tN] > rMax || limits[tN + 3] < rMin) {
             return false;
         }
     }
@@ -82,7 +67,7 @@ function isPossible(grid, p, tile) {
 
 function possible(grid, p) {
     let options = [];
-    for (const t of grid.get(p)) {
+    for (const t of grid[p]) {
         if (isPossible(grid, p, t)) {
             options.push(t);
         }
@@ -91,7 +76,7 @@ function possible(grid, p) {
 }
 
 function failed(grid) {
-    for (p of grid.keys()) {
+    for (let p = 0; p < grid.length; p++) {
         if (possible(grid, p).length == 0) {
             return true;
         }
@@ -100,7 +85,7 @@ function failed(grid) {
 }
 
 function done(grid) {
-    for (p of grid.keys()) {
+    for (let p = 0; p < grid.length; p++) {
         if (possible(grid, p).length != 1) {
             return false;
         }

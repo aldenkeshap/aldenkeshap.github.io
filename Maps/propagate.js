@@ -16,30 +16,30 @@ function removeOption(options, t) {
 }
 
 function propagateTile(grid, p) {
-    const [bottom, top] = bounds(grid, p);
-    const tile = grid.get(p)[0];
-    for (const t in tiles) {
-        const [rMin, rMax] = tiles[tile][t];
-        nMin = bottom[t];
-        nMax = top[t];
+    const limits = bounds(grid, p);
+    const tileN = grid[p][0];
+    for (let tN = 0; tN < 3; tN++) {
+        const [rMin, rMax] = tiles2[tileN][tN];
+        nMin = limits[tN];
+        nMax = limits[tN + 3];
         if (rMax == nMin) {
-            for (const n of neighbors(grid, p)) {
-                let options = grid.get(n);
+            for (const n of neighbors(p)) {
+                let options = grid[n];
                 if (options.length == 1) {
                     continue;
                 }
-                options = removeOption(options, t);
-                grid.set(n, options);
+                options = removeOption(options, tN);
+                grid[n] = options;
             }
         }
         if (rMin == nMax) {
-            for (const n of neighbors(grid, p)) {
-                let options = grid.get(n);
+            for (const n of neighbors(p)) {
+                let options = grid[n];
                 if (options.length == 1) {
                     continue;
                 }
-                if (options.indexOf(t) != -1) {
-                    grid.set(n, t);
+                if (options.indexOf(tN) != -1) {
+                    grid[n] = [tN];
                 }
             }
         }
@@ -47,9 +47,9 @@ function propagateTile(grid, p) {
 }
 
 function propagateAll(grid) {
-    for (p of grid.keys()) {
+    for (let p = 0; p < grid.length; p++) {
         const n = possible(grid, p);
-        grid.set(p, n);
+        grid[p] = n;
         if (n.length == 1) {
             propagateTile(grid, p);
         }
@@ -68,12 +68,12 @@ function equalArray(a, b) {
     return true;
 }
 
-function equalMap(a, b) {
-    if (a.size != b.size) {
+function equalGrid(a, b) {
+    if (a.length != b.length) {
         return false;
     }
-    for (const [k, v] of a) {
-        if (!equalArray(v, b.get(k))) {
+    for (let p = 0; p < a.length; p++) {
+        if (!equalArray(a[p], b[p])) {
             return false;
         }
     }
@@ -81,9 +81,9 @@ function equalMap(a, b) {
 }
 
 function propagate(grid) {
-    old = new Map();
-    while (!equalMap(old, grid)) {
-        old = new Map(grid);
+    old = [];
+    while (!equalGrid(old, grid)) {
+        old = [...grid];
         propagateAll(grid);
     }
 }

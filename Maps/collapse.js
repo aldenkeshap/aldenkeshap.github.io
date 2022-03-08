@@ -5,7 +5,8 @@ function entropy(grid, p) {
 function getBest(grid) {
     let best = [];
     minEntropy = 1000;
-    for (let [p, options] of grid) {
+    for (let p = 0; p < grid.length; p++) {
+        const options = grid[p];
         if (options.length == 1) {
             continue;
         }
@@ -24,7 +25,8 @@ function getBest(grid) {
 
 function getAny(grid) {
     let l = [];
-    for (let [p, options] of grid) {
+    for (let p = 0; p < grid.length; p++) {
+        const options = grid[p];
         if (options.length != 1) {
             l.push(p);
         }
@@ -36,11 +38,11 @@ function getAny(grid) {
 function weightedChoice(options) {
     let sum = 0;
     for (const t of options) {
-        sum += tiles[t].weight;
+        sum += weights[fromNumber[t]];
     }
     let i = Math.floor(Math.random() * sum);
     for (const t of options) {
-        i -= tiles[t].weight;
+        i -= weights[fromNumber[t]];
         if (i < 0) {
             return t;
         }
@@ -50,5 +52,5 @@ function weightedChoice(options) {
 function collapse(grid, p) {
     // const i = Math.floor(Math.random() * grid.get(p).length);
     // grid.set(p, grid.get(p)[i]);
-    grid.set(p, weightedChoice(grid.get(p)));
+    grid[p] = [weightedChoice(grid[p])];
 }
