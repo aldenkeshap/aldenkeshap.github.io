@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>United Waydle</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="platform.css">
+    <link rel="stylesheet" type="text/css" href="mobile.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
+    <script src="logic.js"></script>
+
+    <script src="https://kit.fontawesome.com/bb8c1d9fcc.js" crossorigin="anonymous"></script>
+</head>
+<h1>United Waydle</h1>
+<body onload="setup();">
+    <div class="column">
+        <div class="grid-container">
+            <div class="letter-box"><p id="letter-0" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-1" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-2" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-3" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-4" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-5" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-6" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-7" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-8" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-9" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-10" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-11" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-12" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-13" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-14" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-15" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-16" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-17" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-18" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-19" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-20" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-21" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-22" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-23" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-24" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-25" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-26" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-27" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-28" class="letter"></p></div>
+            <div class="letter-box"><p id="letter-29" class="letter"></p></div>
+        </div>
+        <div class="keyboard">
+            <div class="key-box" style="grid-column: 1 / span 2;"><button class="key" onclick="pressKey('Q');">Q</button></div>
+            <div class="key-box" style="grid-column: 3 / span 2;"><button class="key" onclick="pressKey('W');">W</button></div>
+            <div class="key-box" style="grid-column: 5 / span 2;"><button class="key" onclick="pressKey('E');">E</button></div>
+            <div class="key-box" style="grid-column: 7 / span 2;"><button class="key" onclick="pressKey('R');">R</button></div>
+            <div class="key-box" style="grid-column: 9 / span 2;"><button class="key" onclick="pressKey('T');">T</button></div>
+            <div class="key-box" style="grid-column: 11 / span 2;"><button class="key" onclick="pressKey('Y');">Y</button></div>
+            <div class="key-box" style="grid-column: 13 / span 2;"><button class="key" onclick="pressKey('U');">U</button></div>
+            <div class="key-box" style="grid-column: 15 / span 2;"><button class="key" onclick="pressKey('I');">I</button></div>
+            <div class="key-box" style="grid-column: 17 / span 2;"><button class="key" onclick="pressKey('O');">O</button></div>
+            <div class="key-box" style="grid-column: 19 / span 2;"><button class="key" onclick="pressKey('P');">P</button></div>
+            <div class="key-box" style="grid-column: 2 / span 2;"><button class="key" onclick="pressKey('A');">A</button></div>
+            <div class="key-box" style="grid-column: 4 / span 2;"><button class="key" onclick="pressKey('S');">S</button></div>
+            <div class="key-box" style="grid-column: 6 / span 2;"><button class="key" onclick="pressKey('D');">D</button></div>
+            <div class="key-box" style="grid-column: 8 / span 2;"><button class="key" onclick="pressKey('F');">F</button></div>
+            <div class="key-box" style="grid-column: 10 / span 2;"><button class="key" onclick="pressKey('G');">G</button></div>
+            <div class="key-box" style="grid-column: 12 / span 2;"><button class="key" onclick="pressKey('H');">H</button></div>
+            <div class="key-box" style="grid-column: 14 / span 2;"><button class="key" onclick="pressKey('J');">J</button></div>
+            <div class="key-box" style="grid-column: 16 / span 2;"><button class="key" onclick="pressKey('K');">K</button></div>
+            <div class="key-box" style="grid-column: 18 / span 2;"><button class="key" onclick="pressKey('L');">L</button></div>
+            <div class="key-box" style="grid-column: 1 / span 2;"><button class="key" onclick="backspace();"><i class="fa-solid fa-delete-left"></i></button></div>
+            <div class="key-box" style="grid-column: 3 / span 2;"><button class="key" onclick="pressKey('Z');">Z</button></div>
+            <div class="key-box" style="grid-column: 5 / span 2;"><button class="key" onclick="pressKey('X');">X</button></div>
+            <div class="key-box" style="grid-column: 7 / span 2;"><button class="key" onclick="pressKey('C');">C</button></div>
+            <div class="key-box" style="grid-column: 9 / span 2;"><button class="key" onclick="pressKey('V');">V</button></div>
+            <div class="key-box" style="grid-column: 11 / span 2;"><button class="key" onclick="pressKey('B');">B</button></div>
+            <div class="key-box" style="grid-column: 13 / span 2;"><button class="key" onclick="pressKey('N');">N</button></div>
+            <div class="key-box" style="grid-column: 15 / span 2;"><button class="key" onclick="pressKey('M');">M</button></div>
+            <div class="key-box" style="grid-column: 17 / span 4;"><button class="key enter" onclick="makeGuess();">SUBMIT</button></div>
+        </div>
+        <h2 id="message" hidden>MESSAGE!</h2>
+    </div>
+</body>
+</html>
