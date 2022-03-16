@@ -1,0 +1,42 @@
+@media only screen and (min-width: 480px) {
+    h1 {
+        font-size: 5vh;
+    }
+
+    h2 {
+        width: 50vh;
+    }
+
+    .column {
+        height: 85vh;
+    }
+
+    .grid-container {
+        grid-gap: 1vh 1vh;
+        width: 44vh;
+    }
+
+    .letter-box {
+        width: 8vh;
+        height: 8vh;
+    }
+
+    .letter {
+        font-size: 3vh;
+    }
+
+    .keyboard {
+        grid-gap: 0.5vh 0.5vh;
+    }
+
+    .key {
+        width: 6vh;
+        height: 6vh;
+        border-radius: 1vh;
+    }
+
+    .key.enter {
+        width: 12.5vh;
+        height: 6vh;
+    }
+}

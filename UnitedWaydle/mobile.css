@@ -1,0 +1,63 @@
+@media only screen and (max-width: 1000px) {
+    h1 {
+        font-size: 7vw;
+    }
+
+    h2 {
+        width: 70vw;
+        font-size: 4vw;
+    }
+
+    div {
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        position: relative;
+    }
+
+    .column {
+        height: 70vh;
+    }
+
+    .grid-container {
+        grid-gap: 1vw 1vw;
+        width: 64vw;
+    }
+
+    .letter-box {
+        width: 12vw;
+        height: 12vw;
+        margin: 0;
+        padding: 0;
+    }
+
+    .letter {
+        font-size: 5vw;
+        margin: 0;
+        padding: 0;
+    }
+
+    .keyboard {
+        position: absolute;
+        bottom: 0;
+        grid-gap: 0.5vw 0.5vw;
+    }
+
+    .key {
+        width: 8vw;
+        height: 8vw;
+        font-size: 3vw;
+        border-radius: 1vw;
+    }
+
+    .key.enter {
+        width: 16.5vw;
+        height: 8vw;
+    }
+}

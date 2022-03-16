@@ -1,0 +1,87 @@
+html, body {overflow: hidden;}
+
+body {
+    background-color: #202020;
+}
+
+h1 {
+    color: #e0e0e0;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+}
+
+h2 {
+    color: #e0e0e0;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*align-content: space-between;*/
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(6, auto);
+    /*aspect-ratio: 1;*/
+}
+
+.letter-box {
+    padding: 0;
+    margin: 0;
+    background-color: #404040;
+    display: table;
+    border-radius: 10%;
+}
+
+.letter-box.black {
+    background-color: #606060;
+}
+
+.letter-box.yellow {
+    background-color: #a0a030;
+}
+
+.letter-box.green {
+    background-color: #30d030;
+}
+
+.letter {
+    color: #e0e0e0;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    display: table-cell;
+    vertical-align: middle;
+    text-align:center;
+}
+
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(20, auto);
+    grid-template-rows: repeat(3, auto);
+    margin-top: auto;
+    align-self: center;
+}
+
+.key {
+    background-color: #707070;
+    border: 0;
+    box-shadow: none;
+    font-family: "Roboto", sans-serif;
+    color: #e0e0e0;
+}
+.key.black {
+    background-color: #303030;
+}
+.key.yellow {
+    background-color: #a0a030;
+}
+.key.green {
+    background-color: #30d030;
+}
