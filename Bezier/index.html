@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bézier Curves</title>
+    <script src="draw.js"></script>
+    <script src="move.js"></script>
+</head>
+<body onload="start();" style="background: #ddd;">
+    <h1>Bézier Curves</h1>
+    <h3>Click on points to select and move them, click again to release</h3>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <button onclick="randomize();">Randomize</button>
+    <button onclick="points.pop();">Remove Point</button>
+    <button onclick="addPoint();">Add Point</button>
+    <br>
+    Show points<input type="checkbox" id="points">
+    <br>
+    Show segments<input type="checkbox" id="segments">
+    <br>
+    Animate<input type="checkbox" id="animate">
+    <br>
+    <input type="button" onclick="copy();" value="Copy points to clipboard">
+</body>
+</html>
