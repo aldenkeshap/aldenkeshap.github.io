@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset=UTF-8>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  -->
+
+
     <title>United Waydle</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="platform.css">
     <link rel="stylesheet" type="text/css" href="mobile.css">
 
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-    <script src="script.js"></script>
-    <script src="logic.js"></script>
+
+    <script src="./logic.js"></script>
+    <script src="./state.js"></script>
+    <script src="./words.js"></script>
+    <script src="./js.cookie.min.js"></script>
+    <script src="./script.js"></script>
 
     <script src="https://kit.fontawesome.com/bb8c1d9fcc.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
 </head>
-<h1>United Waydle</h1>
+<h1 id="title">United Waydle</h1>
 <body onload="setup();">
     <div class="column">
         <div class="grid-container">
@@ -77,7 +91,16 @@
             <div class="key-box" style="grid-column: 15 / span 2;"><button class="key" onclick="pressKey('M');">M</button></div>
             <div class="key-box" style="grid-column: 17 / span 4;"><button class="key enter" onclick="makeGuess();">SUBMIT</button></div>
         </div>
-        <h2 id="message" hidden>MESSAGE!</h2>
+        <div class="popup" id="popup" hidden>
+            <h4 id="word"></h4>
+            <div id="scroll">
+                <p id="message"></p>
+            </div>
+            <a id="info" target="_blank"><p id="info-label">LEARN MORE</p></a>
+            <button id="next" onclick="reset();">NEXT</button>
+        </div>
+        <!-- <h2 id="message" hidden>MESSAGE!</h2> -->
     </div>
+
 </body>
 </html>

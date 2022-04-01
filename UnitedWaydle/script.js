@@ -1,8 +1,10 @@
 let guesses = 0;
+let enabled = false;
 
 function getLetter(i) {
-    let letters = document.getElementsByClassName("letter");
-    return letters[i];
+    // let letters = document.getElementsByClassName("letter");
+    // return letters[i];
+    return document.getElementById(`letter-${i}`);
 }
 
 function getCurrent() {
@@ -15,10 +17,15 @@ function getCurrent() {
     }
 }
 
-function pressKey(k) {
+function pressKey(k, skip) {
     const i = getCurrent();
-    if (Math.floor(i / 5) <= guesses) {
+    if ((skip || enabled) && Math.floor(i / 5) <= guesses) {
         getLetter(i).innerHTML = k;
+        if (!skip) {
+            Cookies.set('letters', Cookies.get('letters') + k);
+        }
+    } else {
+        console.log("PK FAIL");
     }
 }
 
@@ -26,6 +33,7 @@ function backspace() {
     let i = getCurrent();
     if (i != guesses * 5) {
         getLetter(i - 1).innerHTML = '';
+        Cookies.set('letters', Cookies.get('letters').slice(0, -1));
     }
 }
 
@@ -34,7 +42,7 @@ colors = {
     Y: 'yellow',
     G: 'green',
 };
-function makeGuess() {
+function makeGuess(skip) {
     let guess = '';
     for (let i = 0; i < 5; i++) {
         let letter = getLetter(i + 5 * guesses);
@@ -42,6 +50,11 @@ function makeGuess() {
     }
 
     if (guess.length != 5 || !allowed.includes(guess.toLowerCase())) {
+        console.log('MG', skip);
+        if (!skip) {
+            shake();
+        }
+
         return;
     }
     const result = correctness(guess);
@@ -55,10 +68,15 @@ function makeGuess() {
     }
     guesses++;
     updateKeyColors(guess, result);
+    if (!skip) {
+        Cookies.set('letters', Cookies.get('letters') + '/');
+    }
     if (result == 'GGGGG') {
-        success();
+        enabled = false;
+        setTimeout(success, 500);
     } else if (guesses == 6) {
-        failed();
+        enabled = false;
+        setTimeout(success, 500);
     }
 }
 
@@ -84,19 +102,68 @@ function getKey(k) {
 }
 
 function success() {
-    hideKeyboard();
     let message = document.getElementById('message');
-    message.innerHTML = "Congratulations, you've solved today's United Waydle. Come back tomorrow for another one!";
+    message.innerHTML = "Congratulations, you've solved this puzzle. ";
     message.hidden = false;
-    hideKeyboard();
+    showPopup();
 }
 function failed() {
-    hideKeyboard();
     let message = document.getElementById('message');
-    message.innerHTML = "You've run out of guesses to solve today's United Waydle. ";
+    message.innerHTML = "You've run out of guesses to solve this puzzle. ";
     const correct = currentWord();
-    message.innerHTML += `The correct answer was ${correct}. Come back tomorrow for another one!`;
+    message.innerHTML += `The correct answer was ${correct}. `;
     message.hidden = false;
+    showPopup();
+}
+
+function showPopup() {
+    let letterGrid = document.getElementsByClassName('grid-container')[0];
+    letterGrid.classList.add("darken");
+    let keyboard = document.getElementsByClassName('keyboard')[0];
+    keyboard.classList.add("darken");
+
+    const current = currentEntry();
+    let word = document.getElementById("word");
+    word.innerHTML = currentWord();
+    let message = document.getElementById('message');
+    message.innerHTML += current.desc;
+    let info = document.getElementById('info');
+    info.href = current.link;
+    let scroll = document.getElementById('scroll');
+    scroll.scroll(0, 0)
+    document.getElementById('popup').hidden = false;
+
+}
+
+function reset() {
+    for (let letterBox of document.getElementsByClassName("letter-box")) {
+        letterBox.classList.remove("black");
+        letterBox.classList.remove("yellow");
+        letterBox.classList.remove("green");
+        letterBox.children[0].innerHTML = "";
+    }
+    for (let key of document.getElementsByClassName("key")) {
+        key.classList.remove("black");
+        key.classList.remove("yellow");
+        key.classList.remove("green");
+    }
+
+    let letterGrid = document.getElementsByClassName('grid-container')[0];
+    letterGrid.classList.remove("darken");
+    let keyboard = document.getElementsByClassName('keyboard')[0];
+    keyboard.classList.remove("darken");
+    document.getElementById('popup').hidden = true;
+    guesses = 0;
+    enabled = true;
+    if (lastWord()) {
+        Cookies.set('index', 0);
+        Cookies.set('shuffle', getShuffle());
+    } else {
+        increaseIndex();
+    }
+    
+    updateTitle();
+    Cookies.set('letters', '');
 }
 
 function hideKeyboard() {
@@ -106,11 +173,28 @@ function hideKeyboard() {
     }
 }
 
+function updateTitle() {
+    let title = document.getElementById("title");
+    title.innerHTML = `United Waydle`;
+}
+
+function shake() {
+    for (let i = 0; i < 5; i++) {
+        let letter = document.getElementsByClassName('letter-box')[guesses * 5 + i];
+        letter.classList.remove('shake');
+        letter.classList.add('shake');
+        setTimeout(function () {
+            letter.classList.remove('shake');
+        }, 1000);
+    }
+    console.log('SHAKE!');
+}
+
 let allowed;
 function setup() {
     document.addEventListener('keydown', function (e) {
-        if (e.code.startsWith('Key') && e.key.length == 1) {
-            pressKey(e.key.toUpperCase());
+        if (e.code.startsWith('Key') && e.key.length == 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            pressKey(e.key.toUpperCase(), false);
         } else if (e.key == 'Backspace') {
             backspace();
         } else if (e.key == 'Enter') {
@@ -118,6 +202,40 @@ function setup() {
         }
         
     });
-    fetch("./guesses.txt").then(x => x.text()).then(q => {allowed = q.split(/\n/)});
+    fetch("./guesses.txt").then(x => x.text()).then(q => {
+        allowed = q.split(/\n/);
+        for (const k of Cookies.get('letters')) {
+            if (k == '/') {
+                makeGuess(true);
+            } else {
+                pressKey(k, true);
+            }
+        }
+        enabled = true;
+    });
+    if (!Cookies.get('index')) {
+        Cookies.set('index', 0);
+    }
+    if (!Cookies.get('letters')) {
+        Cookies.set('letters', '');
+    }
+    if (!Cookies.get('shuffle')) {
+        Cookies.set('shuffle', getShuffle());
+    }
+    for (let letterBox of document.getElementsByClassName("letter-box")) {
+        letterBox.addEventListener('touchend', function (e) {
+            e.preventDefault();
+        });
+    }
+    for (let keyBox of document.getElementsByClassName("key-box")) {
+        keyBox.addEventListener('touchend', function (e) {
+            e.preventDefault();
+            // pressKey(keyBox.children[0].innerHTML);
+            keyBox.children[0].click();
+            console.log("CLICK");
+        });
+    }
+    updateTitle();
+
 }
 

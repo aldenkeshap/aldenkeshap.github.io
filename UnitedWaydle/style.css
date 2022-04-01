@@ -4,17 +4,19 @@ body {
     background-color: #202020;
 }
 
-h1 {
+h1, h2, h4 {
     color: #e0e0e0;
     text-align: center;
     font-family: "Roboto", sans-serif;
 }
 
-h2 {
+/*h2 {
     color: #e0e0e0;
     text-align: center;
     font-family: "Roboto", sans-serif;
-}
+}*/
+
+
 
 .column {
     display: flex;
@@ -36,6 +38,7 @@ h2 {
     background-color: #404040;
     display: table;
     border-radius: 10%;
+    will-change: transform;
 }
 
 .letter-box.black {
@@ -84,4 +87,54 @@ h2 {
 }
 .key.green {
     background-color: #30d030;
+}
+
+
+
+.popup {
+    position: absolute;
+    background-color: #505050;
+}
+.darken {
+    filter: brightness(70%);
+}
+
+
+#scroll {
+    overflow: scroll;
+}
+#message {
+    color: #e0e0e0;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    margin: auto;
+}
+#info {
+    display: table;
+    text-align: center;
+    background: #e0e0e0;
+    position: absolute;
+    text-decoration: none;
+    color: #202020;
+    font-family: "Roboto", sans-serif;
+}
+
+#info-label {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#next {
+    background: #e0e0e0;
+    position: absolute;
+    color: #202020;
+    font-family: "Roboto", sans-serif;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: pointer;
+}
+.shake {
+    animation-name: shake;
+    animation-timing-function: ease-in-out;
 }

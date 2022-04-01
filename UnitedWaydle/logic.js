@@ -1,7 +1,3 @@
-function currentWord() {
-    return 'GRANT';
-}
-
 function correctness(guess) {
     const correct = currentWord();
 

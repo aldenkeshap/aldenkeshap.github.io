@@ -3,8 +3,9 @@
         font-size: 5vh;
     }
 
-    h2 {
-        width: 50vh;
+    h4 {
+        font-size: 3vh;
+        margin-bottom: 2vh;
     }
 
     .column {
@@ -38,5 +39,50 @@
     .key.enter {
         width: 12.5vh;
         height: 6vh;
+    }
+
+    .popup {
+        top: 25vh;
+        height: 50vh;
+        width: 40vh;
+    }
+    #scroll {
+        height: 32vh;
+    }
+    #message {
+        width: 35vh;
+
+    }
+    #info {
+        width: 18.5vh;
+        height: 5vh;
+        bottom: 1vh;
+        left: 1vh;
+        font-size: 2vh;
+    }
+    #next {
+        width: 18.5vh;
+        height: 5vh;
+        bottom: 1vh;
+        right: 1vh;
+        font-size: 2vh;
+    }
+
+    .shake {
+        animation-duration: 0.5s;
+    }
+    @keyframes shake {
+        from {
+            transform: translate(0);
+        }
+        25% {
+            transform: translate(-3vh);
+        }
+        75% {
+            transform: translate(3vh);
+        }
+        to {
+            transform: translate(0);
+        }
     }
 }

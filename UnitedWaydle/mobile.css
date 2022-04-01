@@ -1,11 +1,11 @@
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 480px) {
     h1 {
         font-size: 7vw;
     }
 
-    h2 {
-        width: 70vw;
-        font-size: 4vw;
+    h4 {
+        font-size: 5vw;
+        margin-bottom: 3vw;
     }
 
     div {
@@ -51,13 +51,59 @@
 
     .key {
         width: 8vw;
-        height: 8vw;
+        height: 12vw;
         font-size: 3vw;
         border-radius: 1vw;
     }
 
     .key.enter {
         width: 16.5vw;
-        height: 8vw;
+        height: 12vw;
+    }
+
+    .popup {
+        top: 13vh;
+        height: 60vh;
+        width: 70vw;
+    }
+    #scroll {
+        height: 42vh;
+    }
+    #message {
+        width: 60vw;
+
+    }
+    #info {
+        width: 32vw;
+        height: 5vh;
+        bottom: 2vw;
+        left: 2vw;
+        font-size: 2vh;
+    }
+    #next {
+        width: 32vw;
+        height: 5vh;
+        bottom: 2vw;
+        right: 2vw;
+        font-size: 2vh;
+    }
+
+    .shake {
+        animation-duration: 1s;
+    }
+    @keyframes shake {
+        from {
+            transform: translate(0);
+        }
+        15% {
+            transform: translate(-5vw);
+        }
+        25% {
+            transform: translate(5vw);
+        }
+        50% {
+            transform: translate(0);
+        }
+
     }
 }
