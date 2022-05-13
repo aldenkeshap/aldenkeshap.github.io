@@ -1,6 +1,15 @@
 .tile {
-    width: 5vh;
-    height: 5vh;
+    /*width: 5vh;
+    height: 5vh;*/
     border: 0;
     color: #333;
+    aspect-ratio: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 1em;
+    column-gap: 1em;
+    width: 60%;
 }
