@@ -1,4 +1,13 @@
 .square {
-    width: 5vh;
-    height: 5vh;
+    /*width: 5vh;
+    height: 5vh;*/
+    aspect-ratio: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 1em;
+    column-gap: 1em;
+    width: 30%;
 }
