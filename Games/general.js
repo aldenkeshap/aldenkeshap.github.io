@@ -23,8 +23,8 @@ function send(o) {
 // }
 
 function load() {
-    // socket = new WebSocket('ws://localhost:8765');
-    socket = new WebSocket('wss://limitless-ridge-62634.herokuapp.com');
+    socket = new WebSocket('ws://localhost:8765');
+    // socket = new WebSocket('wss://limitless-ridge-62634.herokuapp.com');
     socket.addEventListener('open', function (event) {
         // initConnection();
         console.log("GET");

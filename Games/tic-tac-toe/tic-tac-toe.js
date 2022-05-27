@@ -1,3 +1,6 @@
+let turn;
+let player;
+
 function setState(state) {
     const squares = document.getElementsByClassName('square');
     console.log('STATE', state);
@@ -12,17 +15,29 @@ function setState(state) {
     const result = document.getElementById('result');
     if (state.result !== '') {
         result.innerHTML = state.result;
+        turn = '';
     } else if (state.turn) {
-        turn.innerHTML = 'O to move';
+        result.innerHTML = 'O to move';
+        turn = 'O';
     } else {
-        turn.innerHTML = 'X to move';
+        result.innerHTML = 'X to move';
+        turn = 'X';
     }
-    
+    update();
+}
+
+function update() {
+    let play = turn == player;
+    for (let button of document.getElementsByClassName('square')) {
+        button.disabled = !play;
+    }
 }
 
 function setPlayer(p) {
-    const player = document.getElementById("my-team");
-    player.innerHTML = "I am " + p + "!";
+    const playerElement = document.getElementById("my-team");
+    playerElement.innerHTML = "I am " + p + "!";
+    player = p;
+    update();
 }
 
 function place(n) {
