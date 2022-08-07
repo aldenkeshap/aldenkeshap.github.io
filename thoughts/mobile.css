@@ -1,5 +1,13 @@
-.content {
-    width: 90%;
-    margin: auto;
-    padding: auto;
+@media only screen and (max-width: 600px) {
+    .content {
+        width: 90%;
+        margin: auto;
+        padding: auto;
+    }
+    /*h1 {
+        color: purple;
+    }*/
+    h2.right {
+        display: none;
+    }
 }
