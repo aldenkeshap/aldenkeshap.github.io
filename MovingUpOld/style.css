@@ -1,0 +1,13 @@
+h1 {
+    color: blue;
+}
+
+table, th, td {
+    border: 0.1em solid black;
+    border-collapse: collapse;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

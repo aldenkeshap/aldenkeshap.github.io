@@ -1,0 +1,36 @@
+td {
+    width:0.1%;
+    white-space: nowrap;
+    padding-right: 1em;
+}
+
+th {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+table, th, td {
+    border: 0.1em solid black;
+    border-collapse: collapse;
+}
+
+.game {
+    margin-right: 1em;
+/*    border: 0.1em solid black;*/
+}
+
+.win {
+    background-color: #60ff60;
+}
+
+.loss {
+    background-color: #ff6060;
+}
+
+.future {
+    background-color: #c8c8c8;
+}
+
+.current {
+    background-color: #9090ff;
+}
