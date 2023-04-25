@@ -1,7 +1,10 @@
 const BASE = "https://busrouter-1-p9387577.deta.app/"
 // const BASE = "http://127.0.0.1:5000/";
 
-let locations = {};
+let locations = {
+    // from: [{}, 0, 0],
+    // to: [{}, 0, 0],
+};
 
 async function find(q) {
     const r = await fetch(BASE + "find?q=" + q);
