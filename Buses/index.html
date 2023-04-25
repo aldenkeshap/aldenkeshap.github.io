@@ -6,20 +6,29 @@
     <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Cville Buses</title>
+    <script src="https://kit.fontawesome.com/bb8c1d9fcc.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    <h1>Cville Buses</h1>
+<body onload="here(document.getElementById('location'), 'from')">
+    <h1>Charlottesville Buses</h1>
 
-    Walk<input type="range" min="1" max="10" value="2" id="weight">Bus
-    <h3>From</h3>   
-    <input class="search-box" type="text" id="from">
-    <button class="location-button" onclick="search('from')">Search</button>
-    <button class="location-button" onclick="here('from')">Here</button>
-    <ul id="from_options"></ul>
-    <h3>To</h3>
-    <input class="search-box" type="text" id="to">
-    <button class="location-button" onclick="search('to')">Search</button>
-    <button class="location-button" onclick="here('to')">Here</button>
+    <div class="slider-box">
+        <i class="bookend fa-solid fa-clock" id="time"></i>
+        <input type="range" min="1" max="10" value="2" id="weight">
+        <i class="bookend fa-solid fa-bus-simple" id="bus"></i>
+    </div>
+    <div id="locations">
+        <input class="search-box" type="text" id="from" readonly>
+        <button id="location" class="location-button" onclick="here(this, 'from')">
+            <i class="fa-solid fa-location-crosshairs"></i>
+        </button>
+        <button class="location-button" onclick="swap();">
+            <i class="fa-solid fa-retweet"></i>
+        </button>
+        <input class="search-box" type="text" id="to" oninput="search({}, 'to')">
+
+        <!-- <button class="to-result dark" readonly onclick="select(this)">Woody home</button> -->
+
+    </div>
     <ul id="to_options"></ul>
     <button onclick="go_route();">Route!</button>
     <ul id="directions"></ul>

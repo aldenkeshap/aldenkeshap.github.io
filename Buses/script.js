@@ -6,22 +6,23 @@ let locations = {};
 async function find(q) {
     const r = await fetch(BASE + "find?q=" + q);
     const j = await r.json();
-    console.log('A F', j);
+    // console.log('A F', j);
     return j;
 }
 
 function name(r) {
     const a = address(r);
-    console.log('DISPLAY', r);
-    console.log('ADDRESS', a);
+    // console.log('DISPLAY', r);
+    // console.log('ADDRESS', a);
     if (r.name) {
-        console.log("NAME", r.name);
+        // console.log("NAME", r.name);
         return [r.name, a];
     } else if (a) {
-        console.log("A");
+        // console.log("A");
         return [a, ''];
     } else {
-        console.log("NONE");
+        // console.log("NONE");
+        return ['here', ''];
     }
 }
 
@@ -45,43 +46,69 @@ function display(r) {
     return d;
 }
 
-function search(id) {
+function search(self, id) {
+    self.disabled = true;
     const i = document.getElementById(id);
+    if (i.value.length <= 2) {
+        clear_options();
+        return;
+    }
     find(i.value).then((j) => {
-        document.getElementById(id + '_options').innerHTML = '';
+        self.disabled = false;
+        let grid = document.getElementById('locations');
+        clear_options();
+        let i = 0;
         for (const r of j) {
             const d = display(r[0]);
             append_option(id, d, r);
+            i++;
+            if (i >= 10) {
+                break;
+            }
         }
     });
 }
-function here(id) {
+function here(self, id) {
+    self.disabled = true;
     const i = document.getElementById(id);
     if (navigator.geolocation) {
-        document.getElementById(id + '_options').innerHTML = '';
+        // document.getElementById(id + '_options').innerHTML = '';
         const l = navigator.geolocation.getCurrentPosition((p) => {
             locations[id] = [{}, p.coords.latitude, p.coords.longitude];
             i.placeholder = 'Current location';
+            self.disabled = false;
         });
     }
 }
 
 function append_option(loc, text, j) {
-    let ul = document.getElementById(loc + '_options');
-    let li = document.createElement('li');
+    let grid = document.getElementById('locations');
     let button = document.createElement('button');
-    button.innerText = 'O';
+    button.innerText = text;
+    button.classList.add('to-result');
+    button.classList.add('dark');
     button.onclick = () => {
-        ul.innerHTML = '';
-        locations[loc] = j;
+        // ul.innerHTML = '';
+        locations['to'] = j;
         let i = document.getElementById(loc);
         i.value = '';
         i.placeholder = display(j[0]);
+        clear_options();
     };
-    li.appendChild(button);
-    li.appendChild(document.createTextNode(text));
-    ul.appendChild(li);
+    grid.appendChild(button);
 }
+function clear_options() {
+    let grid = document.getElementById('locations');
+    for (let i = 0; i < grid.childNodes.length;) {
+        let r = grid.childNodes[i];
+        if (r.classList && r.classList.contains('to-result')) {
+            grid.removeChild(r);
+        } else {
+            i++;
+        }
+    }
+}
+
 
 async function route() {
     const f = `from=${locations.from[1]},${locations.from[2]}`;
@@ -110,4 +137,25 @@ function go_route() {
             ul.appendChild(a);
         }
     });
+}
+
+function swap() {
+    let from = document.getElementById('from'); 
+    let to = document.getElementById('to'); 
+
+    const q = locations.from[0];
+    if (!q.keys) {
+        locations.from = locations.to;
+        locations.to = [];
+        from.placeholder = to.placeholder;
+        to.placeholder = '';
+    } else {
+        locations.from = locations.to;
+        locations.to = q;
+
+        const p = from.placeholder;
+        from.placeholder = to.placeholder;
+        to.placeholder = p;
+    }
+    
 }

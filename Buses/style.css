@@ -1,10 +1,62 @@
-.search-box {
-    font-size: 30px;
-    width: 80%;
+.bookend {
+    flex-grow: 0;
+    font-size: 24px;
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*    padding-right: 5px;*/
+    text-align: center;
+}
+#weight {
+    flex-grow: 1;
+}
+
+.slider-box {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 45px;
+}
+
+#locations {
+    display: grid;
+    grid-template-columns: 40px auto 40px;
+    gap: 5px;
+}
+#from {
+    grid-column: 1 / span 2;
+}
+#to, .to-result {
+    grid-column: 2 / span 2;
+}
+.to-result {
+    border: 0;
+    text-align: left;
+}
+.light {
+    background: #ffffff;
+}
+.dark {
+    background: #dddddd;
 }
 
 .location-button {
-    font-size: 30px;
+    flex-grow: 0;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+.search-box {
+    height: 34px;
+}
+
+.search-box, .to-result {
+    
+    font-size: 25px;
+/*    padding: 0;*/
 }
 
 .step {
