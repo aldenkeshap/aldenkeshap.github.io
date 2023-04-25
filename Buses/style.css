@@ -1,0 +1,13 @@
+.search-box {
+    font-size: 30px;
+    width: 80%;
+}
+
+.location-button {
+    font-size: 30px;
+}
+
+.step {
+    font-size: 18px;
+    font-family: monospace;
+}
