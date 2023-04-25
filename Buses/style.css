@@ -58,6 +58,7 @@ html, body {
 
 .search-box {
     height: 34px;
+    flex-grow: 1;
 }
 
 .search-box, .to-result {
