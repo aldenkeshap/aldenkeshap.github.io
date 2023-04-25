@@ -25,9 +25,9 @@ html, body {
 }
 
 #locations {
-    width: 80%;
+/*    width: 80%;*/
     display: grid;
-    grid-template-columns: 40px auto 40px;
+    grid-template-columns: 40px 1fr 40px;
     gap: 5px;
 }
 #from {
@@ -58,11 +58,12 @@ html, body {
 
 .search-box {
     height: 34px;
-    flex-grow: 1;
+    
 }
 
 .search-box, .to-result {
-    
+    max-width: 100%;
+    flex-grow: 1;
     font-size: 25px;
 /*    padding: 0;*/
 }
