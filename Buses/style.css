@@ -17,7 +17,7 @@ html, body {
 
 .slider-box {
     display: flex;
-    width: 80%;
+    width: 100%;
     align-items: center;
     justify-content: center;
     gap: 5px;
@@ -25,7 +25,7 @@ html, body {
 }
 
 #locations {
-/*    width: 80%;*/
+    width: 100%;
     min-width: 0;
     display: grid;
     grid-template-columns: 40px 1fr 40px;
@@ -51,7 +51,7 @@ html, body {
 .location-button {
     flex-grow: 0;
     font-size: 24px;
-    max-width: 40px;
+    width: 40px;
     height: 40px;
     border-radius: 0;
     border: 0;
@@ -66,10 +66,19 @@ html, body {
 }
 
 .search-box, .to-result {
-    max-width: 100%;
     flex-grow: 1;
     font-size: 25px;
-/*    padding: 0;*/
+    padding: 1px;
+    border-width: 2px;
+}
+
+#route {
+    font-size: 24px;
+    width: 80px;
+    height: 40px;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .step {

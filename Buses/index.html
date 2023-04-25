@@ -19,12 +19,12 @@
     <div id="locations">
         <input class="search-box" type="text" id="from" readonly>
         <button id="location" class="location-button" onclick="here(this, 'from')">
-            <!-- <i class="fa-solid fa-location-crosshairs"></i> -->
-            H
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <!-- H -->
         </button>
         <button class="location-button" onclick="swap();">
-            <!-- <i class="fa-solid fa-retweet"></i> -->
-            S
+            <i class="fa-solid fa-retweet"></i>
+            <!-- S -->
         </button>
         <input class="search-box" type="text" id="to" oninput="search({}, 'to')">
 
@@ -32,8 +32,7 @@
 
     </div>
     <ul id="to_options"></ul>
-    <button onclick="go_route();">Go!</button>
+    <button id="route" onclick="go_route(this);">Go!</button>
     <ul id="directions"></ul>
-    <div style="width: 50px; height: 50px; background: #ff0000">A</div>
 </body>
 </html>

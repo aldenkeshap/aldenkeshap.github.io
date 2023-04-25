@@ -5,6 +5,10 @@ let locations = {
     // from: [{}, 0, 0],
     // to: [{}, 0, 0],
 };
+let updated = {
+    from: 0,
+    to: 0,
+}
 
 async function find(q) {
     const r = await fetch(BASE + "find?q=" + q);
@@ -56,7 +60,12 @@ function search(self, id) {
         clear_options();
         return;
     }
+    const t = new Date().getTime();
     find(i.value).then((j) => {
+        if (updated.id > t) {
+            return;
+        }
+        updated.id = t;
         self.disabled = false;
         let grid = document.getElementById('locations');
         clear_options();
@@ -97,6 +106,7 @@ function append_option(loc, text, j) {
         i.value = '';
         i.placeholder = display(j[0]);
         clear_options();
+        updated.to = new Date.getTime();
     };
     grid.appendChild(button);
 }
@@ -123,8 +133,10 @@ async function route() {
     return j;
 }
 
-function go_route() {
+function go_route(self) {
+    self.disabled = true;
     route().then((r) => {
+        self.disabled = false;
         let ul = document.getElementById('directions');
         ul.innerHTML = '';
         for (const step of r) {
