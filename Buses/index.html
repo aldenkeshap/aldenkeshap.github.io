@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Cville Buses</title>
+</head>
+<body>
+    <h1>Cville Buses</h1>
+
+    Walk<input type="range" min="1" max="10" value="2" id="weight">Bus
+    <h3>From</h3>   
+    <input class="search-box" type="text" id="from">
+    <button class="location-button" onclick="search('from')">Search</button>
+    <button class="location-button" onclick="here('from')">Here</button>
+    <ul id="from_options"></ul>
+    <h3>To</h3>
+    <input class="search-box" type="text" id="to">
+    <button class="location-button" onclick="search('to')">Search</button>
+    <button class="location-button" onclick="here('to')">Here</button>
+    <ul id="to_options"></ul>
+    <button onclick="go_route();">Route!</button>
+    <ul id="directions"></ul>
+</body>
+</html>
