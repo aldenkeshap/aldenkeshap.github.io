@@ -1,3 +1,8 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .bookend {
     flex-grow: 0;
     font-size: 24px;
