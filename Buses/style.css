@@ -25,7 +25,7 @@ html, body {
 }
 
 #locations {
-    width: 100%;
+    width: 80%;
     display: grid;
     grid-template-columns: 40px auto 40px;
     gap: 5px;
