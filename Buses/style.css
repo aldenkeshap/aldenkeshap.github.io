@@ -50,7 +50,7 @@ html, body {
 
 .location-button {
     flex-grow: 0;
-/*     font-size: 24px; */
+    font-size: 24px;
     max-width: 40px;
     height: 40px;
     border-radius: 3px;
