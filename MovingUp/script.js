@@ -166,5 +166,5 @@ function setRankings(json) {
 
 
 function init() {
-    loadJSON('https://yvsxq1.deta.dev/ranking', setRankings)
+    loadJSON('https://movingup-1-f6142101.deta.app/ranking', setRankings)
 }
