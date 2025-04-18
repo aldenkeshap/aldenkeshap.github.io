@@ -1,0 +1,89 @@
+h1 {
+    color: red;
+    height: 5vh;
+    font-size: 5vh;
+    margin-bottom: 2vh;
+}
+
+#top {
+    margin-bottom: 0;
+}
+
+#letter-progress {
+    display: inline-block;
+}
+
+#canvas {
+    margin-top: 2vw;
+    width: 98vw;
+    height: 98vw;
+}
+
+
+#letters, #word-list, #words-search {
+    height: 3vh;
+    font-size: 2vh;
+}
+
+#letter-progress, #solve, #find-words, #word-list-div, #last, #index, #next {
+    font-size: 2vh;
+}
+
+#letter-progress, #solve, #find-words {
+    margin-right: 1vw;
+
+    /* margin-top: 1vh; */
+}
+
+#solve, #find-words {
+    margin-bottom: 1vh;
+}
+
+#canvas, #last, #index, #next {
+    margin-bottom: 1vh;
+}
+
+#words-search {
+    width: 98vw;
+}
+
+#letters {
+    width: 60vw;
+}
+#letter-progress {
+    width: 25vw;
+}
+
+p {
+    font-size: 3vw;
+}
+
+/* #words-box {
+    right: 0;
+    top: calc(7vh + 10px);
+    width: 50vw;
+    color: blue;
+    position: fixed;
+}
+
+#words-content {
+    background: #dddddd;
+    width: 20vw;
+    height: 85vh;
+}
+#words-search {
+    width: 20vw;
+    height: 2vh;
+    margin: 0;
+    /* padding: 0; */
+}
+
+#words {
+    overflow-y: auto;
+    height: 82vh;
+}
+
+.word {
+    margin-top: 0.5em;
+    margin-left: 1em;
+} */

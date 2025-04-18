@@ -1,0 +1,21 @@
+* {
+    font-family: monospace;
+    margin-top: 0;
+}
+
+.red {
+    color: #b00000;
+    color: tn;
+}
+
+.green {
+    color: #008000;
+}
+
+.black {
+    color: #000000;
+}
+
+#canvas {
+    background: #cccccc;
+}

@@ -1,0 +1,15 @@
+{
+  "name": "qless",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "qless_bg.wasm",
+    "qless.js",
+    "qless.d.ts"
+  ],
+  "main": "qless.js",
+  "types": "qless.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
