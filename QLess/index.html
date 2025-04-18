@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <title>QLess Solver</title>
+        <link
+            rel="stylesheet"
+            media="screen and (min-device-width: 800px)"
+            href="desktop.css"
+        />
+        <link
+            rel="stylesheet"
+            media="screen and (max-device-width: 800px)"
+            href="mobile.css"
+        />
+        <link rel="stylesheet" href="shared.css" />
+        <!-- <script src="./pkg/bootstrap.js"></script> -->
+        <script type="module" src="./script.js"></script>
+    </head>
+    <body>
+        <h1>QLess Solver</h1>
+        <div>
+            <div id="main">
+                <div id="top">
+                    <input
+                        id="letters"
+                        type="text"
+                        placeholder="Letters on dice"
+                    />
+                    <pre id="letter-progress" class=""> 0/12</pre>
+                    <button id="solve" disabled>Solve</button>
+                    <button id="find-words">Find words</button>
+                    <div id="word-list-div">
+                        Word list:
+                        <select id="word-list">
+                            <option value="common">
+                                Only common Scrabble words
+                            </option>
+                            <option value="full">Full Scrabble list</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="canvas" width="720" height="720"></canvas>
+            </div>
+
+            <!-- <br /> -->
+            <div>
+                <button id="last" disabled>&lt;</button>
+                <span id="index">0/0</span>
+                <button id="next" disabled>&gt;</button>
+            </div>
+            <div id="words-box">
+                <div id="words-content">
+                    <input
+                        id="words-search"
+                        placeholder="Search possible words"
+                    />
+                    <div id="words">
+                        <!-- <p class="word">Hello</p>
+                        <p class="word">Hello</p>
+                        <p class="word">Hello</p>
+                        <p class="word">Hello</p>
+                        <p class="word">Hello</p>
+                        <p class="word">Hello</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
