@@ -12,9 +12,13 @@ function loadJSON(link, callback) {
   req.send(null);
 }
 
-function td(text) {
+function td(text, id) {
   let data = document.createElement("td");
+
   data.appendChild(document.createTextNode(text));
+  if (id) {
+    data.id = id;
+  }
   return data;
 }
 
@@ -158,6 +162,8 @@ const exampleRanking = [
 
 function placeGames(json, week, teamRanking) {
   const teamId = json.team.id;
+  let record = document.getElementById(`record-${teamId}`);
+  record.innerText = json.team.recordSummary;
   let currentGames = [];
   for (const game of json.events) {
     const w = game.week.number;
@@ -235,7 +241,7 @@ function setRankings(json, week, teamRanking) {
       row.appendChild(td("NR"));
     }
     row.appendChild(td(team.points));
-    row.appendChild(td(team.record));
+    row.appendChild(td(team.record, `record-${team.id}`));
     // row.appendChild(create_games(games[team.id], team.id));
 
     console.log("TEAM", team);
