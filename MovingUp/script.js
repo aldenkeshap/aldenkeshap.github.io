@@ -29,8 +29,10 @@ function create_games(games, team) {
     span.appendChild(document.createTextNode(game_text(game)));
     span.classList.add("game");
     span.classList.add(game.status);
-    span.id = `game-${game.id}`;
+    const index = document.getElementById(`game-1-${game.id}`) ? 2 : 1;
+    span.id = `game-${index}-${game.id}`;
     span.team = team;
+    span.title = `${output_time(game.date)} on ${game.broadcast}`;
     row.appendChild(span);
   }
   return row;
@@ -65,7 +67,8 @@ function game_text(game) {
 
 function game_score(game) {
   const letter = game.status == "win" ? "W" : "L";
-  return `${letter} ${game.team_score}-${game.opponent_score}`;
+  const ot = game.ot ? `/${game.ot}` : "";
+  return `${letter}${ot} ${game.team_score}-${game.opponent_score}`;
 }
 
 function output_time(s) {
@@ -87,13 +90,15 @@ function output_time(s) {
   return `${day} ${time}${noon}`;
 }
 
-function game_time(status, tied) {
+function game_time(status, score1, score2) {
   const half = status.period;
   if (status.clock == 0) {
     if (half == 1) {
       return "halftime";
     } else {
-      if (tied) {
+      if (score1 === 0 && score2 === 0) {
+        return "about to start";
+      } else if (score1 === score2) {
         return "end of regulation";
       } else {
         return "final";
@@ -106,19 +111,14 @@ function game_time(status, tied) {
 }
 
 function loadScore(json) {
-  let span = document.getElementById(`game-${json.id}`);
-  let left = span.innerText.split("\u{200B}")[0];
-  const [a, b] = json.competitions[0].competitors;
-  console.log("LS", json);
-  let score;
-  if (a.id == span.team) {
-    score = `${a.score}-${b.score}`;
-  } else {
-    score = `${b.score}-${a.score}`;
-  }
-
+  // console.log("LS", json);
+  let competition = json.competitions[0];
+  const [a, b] = competition.competitors;
+  let broadcasts = competition.broadcasts
+    .map((b) => b.names.join("/"))
+    .join("/");
   const time = game_time(json.status, a.score == b.score);
-  span.innerText = `${left}\u{200B} ${score}, ${time}`;
+
   if (time != "final") {
     setTimeout(() => {
       loadJSON(
@@ -126,7 +126,25 @@ function loadScore(json) {
         loadScore,
       );
     }, 15 * 1000);
-    console.log("LS ST", new Date());
+    // console.log("LS ST", new Date());
+  }
+
+  for (const index of [1, 2]) {
+    let span = document.getElementById(`game-${index}-${json.id}`);
+    if (span === null) {
+      continue;
+    }
+
+    let left = span.innerText.split("\u{200B}")[0];
+
+    let score;
+    if (a.id == span.team) {
+      score = `${a.score}-${b.score}`;
+    } else {
+      score = `${b.score}-${a.score}`;
+    }
+
+    span.innerText = `${left}\u{200B} ${score}, ${time} on ${broadcasts}`;
   }
 }
 
@@ -160,6 +178,8 @@ const exampleRanking = [
   },
 ];
 
+function broadcasts(broadcasts) {}
+
 function placeGames(json, week, teamRanking) {
   const teamId = json.team.id;
   let record = document.getElementById(`record-${teamId}`);
@@ -185,6 +205,10 @@ function placeGames(json, week, teamRanking) {
     const status = competition.status.type.name;
     g.date = competition.date;
     g.id = competition.id;
+    g.ot = competition.status.type.altDetail;
+    g.broadcast = competition.broadcasts
+      .map((b) => b.media.shortName)
+      .join("/");
     for (const comp of competition.competitors) {
       if (comp.id === teamId) {
         g.location = comp.homeAway;
