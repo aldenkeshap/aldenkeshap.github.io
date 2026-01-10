@@ -99,13 +99,22 @@ function game_time(status, score1, score2) {
       if (score1 === 0 && score2 === 0) {
         return "about to start";
       } else if (score1 === score2) {
-        return "end of regulation";
+        return "end of period";
       } else {
         return "final";
       }
     }
   } else {
-    const h = half == 1 ? "1st" : "2nd";
+    let h;
+    if (half === 1) {
+      h = "1st";
+    } else if (half === 2) {
+      h = "2nd";
+    } else if (half === 3) {
+      h = "OT";
+    } else {
+      h = `${h - 2}OT`;
+    }
     return `${status.displayClock} in ${h}`;
   }
 }
@@ -117,7 +126,7 @@ function loadScore(json) {
   let broadcasts = competition.broadcasts
     .map((b) => b.names.join("/"))
     .join("/");
-  const time = game_time(json.status, a.score == b.score);
+  const time = game_time(json.status, a.score, b.score);
 
   if (time != "final") {
     setTimeout(() => {
@@ -169,12 +178,12 @@ const game2 = {
 
 const exampleRanking = [
   {
-    name: "UTSA",
+    name: "Texas",
     "votes-first": 3,
     rank: 0,
     points: 123,
     record: "1-0",
-    id: 2636,
+    id: 251,
   },
 ];
 
