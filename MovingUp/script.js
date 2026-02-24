@@ -96,7 +96,7 @@ function game_time(status, score1, score2) {
     if (half == 1) {
       return "halftime";
     } else {
-      if (score1 === 0 && score2 === 0) {
+      if (score1 == 0 && score2 == 0) {
         return "about to start";
       } else if (score1 === score2) {
         return "end of period";
