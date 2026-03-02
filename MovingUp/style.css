@@ -1,5 +1,15 @@
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#sport {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    /*float: right;*/
+}
+
 td {
-    width:0.1%;
+    width: 0.1%;
     white-space: nowrap;
     padding-right: 1em;
 }
@@ -9,14 +19,16 @@ th {
     padding-right: 1em;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 0.1em solid black;
     border-collapse: collapse;
 }
 
 .game {
     margin-right: 1em;
-/*    border: 0.1em solid black;*/
+    /*    border: 0.1em solid black;*/
 }
 
 .win {

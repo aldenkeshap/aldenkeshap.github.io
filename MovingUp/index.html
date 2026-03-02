@@ -5,12 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" href="favicon.png" />
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <script type="text/javascript" src="script.js"></script>
+
         <title>Moving Up</title>
-        <style></style>
     </head>
     <body>
-        <h1>Moving Up</h1>
+        <div>
+            <h1 style="">Moving Up</h1>
+            <select id="sport" onchange="run_sport(this.value);">
+                <option value="men-bball">Men's basketball</option>
+                <option value="women-bball">Women's basketball</option>
+                <option value="men-lax">Men's lacrosse</option>
+                <option value="women-lax">Women's lacrosse</option>
+                <option value="baseball">Baseball</option>
+                <option value="softball">Softball</option>
+            </select>
+        </div>
         <table style="width: 100%" id="table">
             <tr>
                 <th>Team</th>
@@ -26,6 +35,12 @@
             <td>10-0 (1-0)</td>
             <td><span class="game loss">at 22 Miami L 64-66</span><span class="game future">vs 7 Duke on Fri 9:00pm</span></td>
         </tr> -->
+
+            <!--<script type="module">
+                import { run_sport } from "./script2.js";
+                // run_sport("women-bball");
+            </script>-->
         </table>
+        <script type="module" src="script2.js"></script>
     </body>
 </html>
