@@ -30,6 +30,7 @@ select.value = sportName;
 await run_sport(sportName);
 
 async function run_sport(sportName) {
+  const timezoneOffset = new Date().getTimezoneOffset();
   let sport = Sport.from_name(sportName);
 
   const url = sport.rankings_url();
@@ -61,7 +62,7 @@ async function run_sport(sportName) {
     ranks.scoreboard_urls(sport).map((url) => fetch(url).then((r) => r.text())),
   );
   let perspectives_by_day = json_by_day.map((j) => {
-    return get_scores(sport, ranks, j);
+    return get_scores(sport, ranks, timezoneOffset, j);
   });
 
   for (const perspectives of perspectives_by_day) {
@@ -94,6 +95,7 @@ async function run_sport(sportName) {
     let perspectives = get_scores(
       sport,
       ranks,
+      timezoneOffset,
       await (await fetch(scoreboard_url)).text(),
     );
 
@@ -101,6 +103,7 @@ async function run_sport(sportName) {
       for (const teamId of p.perspectives) {
         // console.log("P")
         let span = document.getElementById(`game-${teamId}-${p.game.id}`);
+        console.log(`game-${teamId}-${p.game.id}`);
         span.innerText = p.game.show(teamId);
 
         const cls = p.game.class(teamId);

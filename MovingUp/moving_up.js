@@ -494,15 +494,16 @@ export function add(left, right) {
 /**
  * @param {Sport} sport
  * @param {Ranking} ranked_teams
+ * @param {number} timezone_offset
  * @param {string} json
  * @returns {GamePerspectives[]}
  */
-export function get_scores(sport, ranked_teams, json) {
+export function get_scores(sport, ranked_teams, timezone_offset, json) {
     _assertClass(sport, Sport);
     _assertClass(ranked_teams, Ranking);
     const ptr0 = passStringToWasm0(json, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.get_scores(sport.__wbg_ptr, ranked_teams.__wbg_ptr, ptr0, len0);
+    const ret = wasm.get_scores(sport.__wbg_ptr, ranked_teams.__wbg_ptr, timezone_offset, ptr0, len0);
     var v2 = getArrayJsValueFromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 4, 4);
     return v2;
