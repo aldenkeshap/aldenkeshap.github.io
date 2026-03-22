@@ -194,14 +194,14 @@ export class Ranking {
         return v1;
     }
     /**
-     * @param {string} json
-     * @returns {Ranking}
+     * @param {string} id
+     * @returns {number | undefined}
      */
-    static from_json(json) {
-        const ptr0 = passStringToWasm0(json, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    get_ranking(id) {
+        const ptr0 = passStringToWasm0(id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.ranking_from_json(ptr0, len0);
-        return Ranking.__wrap(ret);
+        const ret = wasm.ranking_get_ranking(this.__wbg_ptr, ptr0, len0);
+        return ret === 0x100000001 ? undefined : ret;
     }
     /**
      * @param {Sport} sport
@@ -241,6 +241,132 @@ export class Ranking {
     }
 }
 if (Symbol.dispose) Ranking.prototype[Symbol.dispose] = Ranking.prototype.free;
+
+export class RankingType {
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(RankingType.prototype);
+        obj.__wbg_ptr = ptr;
+        RankingTypeFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        RankingTypeFinalization.unregister(this);
+        return ptr;
+    }
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_rankingtype_free(ptr, 0);
+    }
+    /**
+     * @param {Teams} teams
+     * @param {string} res
+     */
+    add_specific(teams, res) {
+        _assertClass(teams, Teams);
+        const ptr0 = passStringToWasm0(res, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.rankingtype_add_specific(this.__wbg_ptr, teams.__wbg_ptr, ptr0, len0);
+    }
+    /**
+     * @param {Teams} teams
+     * @param {string} res
+     */
+    add_weeks(teams, res) {
+        _assertClass(teams, Teams);
+        const ptr0 = passStringToWasm0(res, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.rankingtype_add_weeks(this.__wbg_ptr, teams.__wbg_ptr, ptr0, len0);
+    }
+    /**
+     * @returns {string}
+     */
+    get_name() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.rankingtype_get_name(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {Ranking}
+     */
+    get_ranking() {
+        const ret = wasm.rankingtype_get_ranking(this.__wbg_ptr);
+        return Ranking.__wrap(ret);
+    }
+    /**
+     * @returns {string}
+     */
+    get_slug() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.rankingtype_get_slug(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {string}
+     */
+    get_url1() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.rankingtype_get_url1(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {string}
+     */
+    get_url2() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.rankingtype_get_url2(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @param {Sport} sport
+     * @returns {RankingType[]}
+     */
+    static options(sport) {
+        _assertClass(sport, Sport);
+        const ret = wasm.rankingtype_options(sport.__wbg_ptr);
+        var v1 = getArrayJsValueFromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 4, 4);
+        return v1;
+    }
+    /**
+     * @returns {boolean}
+     */
+    ranking_ready() {
+        const ret = wasm.rankingtype_ranking_ready(this.__wbg_ptr);
+        return ret !== 0;
+    }
+}
+if (Symbol.dispose) RankingType.prototype[Symbol.dispose] = RankingType.prototype.free;
 
 export class Sport {
     static __wrap(ptr) {
@@ -282,21 +408,6 @@ export class Sport {
         const len0 = WASM_VECTOR_LEN;
         const ret = wasm.sport_from_name(ptr0, len0);
         return Sport.__wrap(ret);
-    }
-    /**
-     * @returns {string}
-     */
-    rankings_url() {
-        let deferred1_0;
-        let deferred1_1;
-        try {
-            const ret = wasm.sport_rankings_url(this.__wbg_ptr);
-            deferred1_0 = ret[0];
-            deferred1_1 = ret[1];
-            return getStringFromWasm0(ret[0], ret[1]);
-        } finally {
-            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
-        }
     }
 }
 if (Symbol.dispose) Sport.prototype[Symbol.dispose] = Sport.prototype.free;
@@ -481,6 +592,54 @@ export class Team {
 }
 if (Symbol.dispose) Team.prototype[Symbol.dispose] = Team.prototype.free;
 
+export class Teams {
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(Teams.prototype);
+        obj.__wbg_ptr = ptr;
+        TeamsFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        TeamsFinalization.unregister(this);
+        return ptr;
+    }
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_teams_free(ptr, 0);
+    }
+    /**
+     * @param {string} json
+     * @returns {Teams}
+     */
+    static get_teams(json) {
+        const ptr0 = passStringToWasm0(json, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.teams_get_teams(ptr0, len0);
+        return Teams.__wrap(ret);
+    }
+    /**
+     * @param {Sport} sport
+     * @returns {string}
+     */
+    static teams_url(sport) {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            _assertClass(sport, Sport);
+            const ret = wasm.teams_teams_url(sport.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+}
+if (Symbol.dispose) Teams.prototype[Symbol.dispose] = Teams.prototype.free;
+
 /**
  * @param {number} left
  * @param {number} right
@@ -565,6 +724,10 @@ function __wbg_get_imports() {
             const ret = new Error();
             return ret;
         },
+        __wbg_rankingtype_new: function(arg0) {
+            const ret = RankingType.__wrap(arg0);
+            return ret;
+        },
         __wbg_stack_3b0d974bbf31e44f: function(arg0, arg1) {
             const ret = arg1.stack;
             const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
@@ -615,12 +778,18 @@ const GamePerspectivesFinalization = (typeof FinalizationRegistry === 'undefined
 const RankingFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_ranking_free(ptr >>> 0, 1));
+const RankingTypeFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_rankingtype_free(ptr >>> 0, 1));
 const SportFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_sport_free(ptr >>> 0, 1));
 const TeamFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
     : new FinalizationRegistry(ptr => wasm.__wbg_team_free(ptr >>> 0, 1));
+const TeamsFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_teams_free(ptr >>> 0, 1));
 
 function addToExternrefTable0(obj) {
     const idx = wasm.__externref_table_alloc();
