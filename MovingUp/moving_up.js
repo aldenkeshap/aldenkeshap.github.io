@@ -348,6 +348,13 @@ export class RankingType {
         }
     }
     /**
+     * @returns {boolean}
+     */
+    hide_points() {
+        const ret = wasm.rankingtype_hide_points(this.__wbg_ptr);
+        return ret !== 0;
+    }
+    /**
      * @param {Sport} sport
      * @returns {RankingType[]}
      */

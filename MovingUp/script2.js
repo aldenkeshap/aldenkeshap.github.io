@@ -96,6 +96,13 @@ async function run_sport(sportName, rankingName) {
   }
   console.log("RO", ranking_option);
 
+  if (ranking_option.hide_points()) {
+    let header = document.getElementById("points-header");
+    if (header) {
+      header.remove();
+    }
+  }
+
   const teams = Teams.get_teams(await load(Teams.teams_url(sport)));
   console.log("TEAMS1", teams);
   const url1 = ranking_option.get_url1();
@@ -131,17 +138,29 @@ async function run_sport(sportName, rankingName) {
 
     row.remove();
   }
+
   for (const team of ranks.teams) {
     let row = document.createElement("tr");
 
     row.appendChild(td(team.name));
     row.appendChild(td(team.show_rank()));
-    row.appendChild(td(team.votes));
+    if (!ranking_option.hide_points()) {
+      let points = td(team.votes);
+      points.classList.add("points");
+      row.appendChild(points);
+    }
+
     row.appendChild(td(team.record, `record-${team.id}`));
     row.appendChild(td("", "games-" + team.id));
 
     table.appendChild(row);
   }
+
+  // if (ranking_option.hide_points()) {
+  //   for (const elem of document.getElementsByClassName("points")) {
+  //     elem.hidden = true;
+  //   }
+  // }
 
   const json_by_day = await Promise.all(
     ranks.scoreboard_urls(sport).map((url) => fetch(url).then((r) => r.text())),
