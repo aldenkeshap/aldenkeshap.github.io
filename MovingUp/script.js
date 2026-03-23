@@ -22,11 +22,11 @@ function td(text, id) {
   return data;
 }
 
-function create_games(games, team) {
+function create_games(games, team, sport) {
   let row = document.createElement("td");
   for (const game of games) {
     let span = document.createElement("span");
-    span.appendChild(document.createTextNode(game_text(game)));
+    span.appendChild(document.createTextNode(game_text(game, sport)));
     span.classList.add("game");
     span.classList.add(game.status);
     const index = document.getElementById(`game-1-${game.id}`) ? 2 : 1;
@@ -38,7 +38,7 @@ function create_games(games, team) {
   return row;
 }
 
-function game_text(game) {
+function game_text(game, sport) {
   let s;
   if (game.location == "away") {
     s = "at ";
@@ -56,8 +56,8 @@ function game_text(game) {
     s = s.concat(", ", output_time(game.date));
   } else {
     loadJSON(
-      `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard/${game.id}`,
-      loadScore,
+      `https://site.api.espn.com/apis/site/v2/sports/${SLUGS[sport]}/scoreboard/${game.id}`,
+      (j) => loadScore(j, sport),
     );
   }
 
@@ -119,7 +119,7 @@ function game_time(status, score1, score2) {
   }
 }
 
-function loadScore(json) {
+function loadScore(json, sport) {
   // console.log("LS", json);
   let competition = json.competitions[0];
   const [a, b] = competition.competitors;
@@ -131,8 +131,8 @@ function loadScore(json) {
   if (time != "final") {
     setTimeout(() => {
       loadJSON(
-        `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard/${json.id}`,
-        loadScore,
+        `https://site.api.espn.com/apis/site/v2/sports/${SLUGS[sport]}/scoreboard/${json.id}`,
+        (j) => loadScore(j, sport),
       );
     }, 15 * 1000);
     // console.log("LS ST", new Date());
@@ -189,12 +189,13 @@ const exampleRanking = [
 
 function broadcasts(broadcasts) {}
 
-function placeGames(json, week, teamRanking) {
+function placeGames(json, week, teamRanking, sport) {
   const teamId = json.team.id;
   let record = document.getElementById(`record-${teamId}`);
   record.innerText = json.team.recordSummary;
   let currentGames = [];
   for (const game of json.events) {
+    console.log("GAME", game);
     const w = game.week.number;
     if (w > week) {
       break;
@@ -254,10 +255,10 @@ function placeGames(json, week, teamRanking) {
   }
   document
     .getElementById("games-" + teamId)
-    .replaceWith(create_games(currentGames, teamId));
+    .replaceWith(create_games(currentGames, teamId, sport));
 }
 
-function setRankings(json, week, teamRanking) {
+function setRankings(json, week, teamRanking, sport) {
   let table = document.getElementById("table");
   // const games = json.games.data;
   // for (const team of json.ranking.data) {
@@ -278,11 +279,11 @@ function setRankings(json, week, teamRanking) {
     // row.appendChild(create_games(games[team.id], team.id));
 
     console.log("TEAM", team);
-    let games = create_games([], team.id);
+    let games = create_games([], team.id, sport);
     games.id = "games-" + team.id;
     loadJSON(
-      `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/${team.id}/schedule`,
-      (json) => placeGames(json, week, teamRanking),
+      `https://site.api.espn.com/apis/site/v2/sports/${SLUGS[sport]}/teams/${team.id}/schedule`,
+      (json) => placeGames(json, week, teamRanking, sport),
     );
     row.appendChild(games);
 
@@ -290,7 +291,7 @@ function setRankings(json, week, teamRanking) {
   }
 }
 
-function setRankings2(json) {
+function setRankings2(json, sport) {
   let ranking = json.rankings[0];
   const week = +ranking.occurrence.value;
   let teams = ranking.ranks.concat(ranking.others);
@@ -307,13 +308,27 @@ function setRankings2(json) {
       id: team.team.id,
     });
   }
-  setRankings(ranks, week, teamRanking);
+  setRankings(ranks, week, teamRanking, sport);
 }
 
+let sport = "men-bball";
+const SLUGS = {
+  "men-bball": "basketball/mens-college-basketball",
+  "women-bball": "basketball/womens-college-basketball",
+  baseball: "baseball/college-baseball",
+  "men-lax": "lacrosse/mens-college-lacrosse",
+};
 function init() {
+  const params = new URLSearchParams(window.location.search);
+  let sport = params.get("sport") || "men-bball";
+  let select = document.getElementById("sport");
+  select.value = sport;
+  initSport(sport);
+}
+function initSport(sport) {
   loadJSON(
-    "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/rankings",
-    setRankings2,
+    `https://site.api.espn.com/apis/site/v2/sports/${SLUGS[sport]}/rankings`,
+    (j) => setRankings2(j, sport),
   );
   let ranking = [];
 
