@@ -110,9 +110,18 @@ async function run_sport(sportName, rankingName) {
   console.log("RO", ranking_option);
 
   if (ranking_option.hide_points()) {
-    let header = document.getElementById("points-header");
-    if (header) {
-      header.remove();
+    let header_desktop = document.getElementById("points-header-desktop");
+    if (header_desktop) {
+      header_desktop.remove();
+    }
+    let header_mobile = document.getElementById("points-header-mobile");
+    if (header_mobile) {
+      header_mobile.remove();
+    }
+    if (!desktop()) {
+      let div = document.getElementById("teams");
+      div.classList.remove("four");
+      div.classList.add("three");
     }
   }
 
@@ -173,13 +182,14 @@ async function run_sport(sportName, rankingName) {
 
     for (const team of ranks.teams) {
       div.appendChild(p(team.show_rank()));
-      div.appendChild(p(team.name));
 
-      // if (!ranking_option.hide_points()) {
-      //   let points = td(team.votes);
-      //   points.classList.add("points");
-      //   row.appendChild(points);
-      // }
+      if (!ranking_option.hide_points()) {
+        let points = p(team.votes);
+        points.classList.add("points");
+        div.appendChild(points);
+      }
+
+      div.appendChild(p(team.name));
 
       div.appendChild(p(team.record, `record-${team.id}`));
       let games = td("", "games-" + team.id);
