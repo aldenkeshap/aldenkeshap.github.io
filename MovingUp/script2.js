@@ -1,11 +1,19 @@
-function td(text, id) {
-  let data = document.createElement("td");
+function elem(name, text, id) {
+  let data = document.createElement(name);
 
   data.appendChild(document.createTextNode(text));
   if (id) {
     data.id = id;
   }
   return data;
+}
+
+function td(text, id) {
+  return elem("td", text, id);
+}
+
+function p(text, id) {
+  return elem("p", text, id);
 }
 
 async function load(url) {
@@ -37,6 +45,11 @@ async function load_proxy(url) {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
+}
+
+function desktop() {
+  const query = window.matchMedia("(min-aspect-ratio: 1/1)");
+  return query.matches;
 }
 
 // =========================================
@@ -117,50 +130,65 @@ async function run_sport(sportName, rankingName) {
 
   console.log(ranking_option);
 
-  // let links = Ranking.get_weeks(await load_proxy(Ranking.ncbwa_url()));
-  // console.log("LINKS", links);
-
-  // let ncbwa = Ranking.from_ncbwa(teams, await load_proxy(links[0]));
-  // console.log("NCBWA", ncbwa);
-
-  // const url = sport.rankings_url();
-  // let ranks = Ranking.from_json(await load(url));
   let ranks = ranking_option.get_ranking();
   console.log("RANKS1", ranks);
 
-  let table = document.getElementById("table");
-  while (true) {
-    let row = table.lastChild;
-    console.log("ROW", row);
-    if (row.tagName == "TBODY") {
-      break;
+  if (desktop()) {
+    let table = document.getElementById("table");
+    while (true) {
+      let row = table.lastChild;
+      console.log("ROW", row);
+      if (row.tagName == "TBODY") {
+        break;
+      }
+      row.remove();
     }
 
-    row.remove();
-  }
+    for (const team of ranks.teams) {
+      let row = document.createElement("tr");
 
-  for (const team of ranks.teams) {
-    let row = document.createElement("tr");
+      row.appendChild(td(team.name));
+      row.appendChild(td(team.show_rank()));
+      if (!ranking_option.hide_points()) {
+        let points = td(team.votes);
+        points.classList.add("points");
+        row.appendChild(points);
+      }
 
-    row.appendChild(td(team.name));
-    row.appendChild(td(team.show_rank()));
-    if (!ranking_option.hide_points()) {
-      let points = td(team.votes);
-      points.classList.add("points");
-      row.appendChild(points);
+      row.appendChild(td(team.record, `record-${team.id}`));
+      row.appendChild(td("", "games-" + team.id));
+
+      table.appendChild(row);
+    }
+  } else {
+    let div = document.getElementById("teams");
+    while (true) {
+      let elem = div.lastChild;
+      console.log("ELEM", elem);
+      if (elem.tagName == "STRONG") {
+        break;
+      }
+      elem.remove();
     }
 
-    row.appendChild(td(team.record, `record-${team.id}`));
-    row.appendChild(td("", "games-" + team.id));
+    for (const team of ranks.teams) {
+      div.appendChild(p(team.show_rank()));
+      div.appendChild(p(team.name));
 
-    table.appendChild(row);
+      // if (!ranking_option.hide_points()) {
+      //   let points = td(team.votes);
+      //   points.classList.add("points");
+      //   row.appendChild(points);
+      // }
+
+      div.appendChild(p(team.record, `record-${team.id}`));
+      let games = td("", "games-" + team.id);
+      games.style = "display: none;";
+      div.appendChild(games);
+
+      // div.appendChild(row);
+    }
   }
-
-  // if (ranking_option.hide_points()) {
-  //   for (const elem of document.getElementsByClassName("points")) {
-  //     elem.hidden = true;
-  //   }
-  // }
 
   const json_by_day = await Promise.all(
     ranks.scoreboard_urls(sport).map((url) => fetch(url).then((r) => r.text())),
@@ -172,17 +200,10 @@ async function run_sport(sportName, rankingName) {
   for (const perspectives of perspectives_by_day) {
     for (const p of perspectives) {
       for (const teamId of p.perspectives) {
-        let span = document.createElement("span");
         const id = `game-${teamId}-${p.game.id}`;
         if (document.getElementById(id)) {
           continue;
         }
-        span.id = id;
-        span.appendChild(document.createTextNode(p.game.show(teamId)));
-        span.classList.add("game");
-        span.classList.add(p.game.class(teamId));
-
-        span.title = p.game.tooltip();
 
         let record = document.getElementById(`record-${teamId}`);
         const r = p.game.record(teamId);
@@ -190,8 +211,17 @@ async function run_sport(sportName, rankingName) {
           record.innerText = r;
         }
 
+        let span = elem(desktop() ? "span" : "p", p.game.show(teamId), id);
+        span.classList.add("game");
+        span.classList.add(p.game.class(teamId));
+
         let games = document.getElementById(`games-${teamId}`);
-        games.appendChild(span);
+        if (desktop()) {
+          span.title = p.game.tooltip();
+          games.appendChild(span);
+        } else {
+          games.before(span);
+        }
       }
     }
   }

@@ -3,8 +3,20 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/png" href="favicon.png" />
+
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="mobile.css"
+            media="screen and (max-aspect-ratio: 1/1)"
+        />
+        <link
+            rel="stylesheet"
+            href="desktop.css"
+            media="screen and (min-aspect-ratio: 1/1)"
+        />
 
         <title>Moving Up</title>
     </head>
@@ -30,19 +42,26 @@
                 <th>Record</th>
                 <th style="width: 100%">Games</th>
             </tr>
-            <!-- <tr>
-            <td>Virginia</td>
-            <td>1 (20)</td>
-            <td>520</td>
-            <td>10-0 (1-0)</td>
-            <td><span class="game loss">at 22 Miami L 64-66</span><span class="game future">vs 7 Duke on Fri 9:00pm</span></td>
-        </tr> -->
-
-            <!--<script type="module">
-                import { run_sport } from "./script2.js";
-                // run_sport("women-bball");
-            </script>-->
         </table>
+        <div id="teams" class="teams">
+            <strong class="top">Rank</strong>
+            <strong class="top">Team</strong>
+            <strong class="top">Record</strong>
+
+            <!--<p>1</p>
+            <p>Virginia</p>
+            <p>10-2</p>
+
+            <p class="game win">vs 12 Mississippi St W 6-3</p>
+            <p class="game loss">vs Duke W 20-19</p>
+            <p class="game current">vs Duke W 20-19</p>
+            <p
+                class="game future"
+                onclick="this.innerText += ' on Peacock/NBCSN'"
+            >
+                at Michigan State 5-0, Top 3rd
+            </p>-->
+        </div>
         <script type="module" src="script2.js"></script>
     </body>
 </html>
